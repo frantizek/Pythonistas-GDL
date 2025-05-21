@@ -1,0 +1,110 @@
+{
+  "config": {
+    "title": "print(\"Hola Pythonistas GDL!\")",
+    "description": "Comunidad de desarrolladores Python en Guadalajara. Comparte conocimiento, haz networking y crece profesionalmente.",
+    "logo_text": "Pythonistas GDL",
+    "footer": "© 2025 Pythonistas GDL - Comunidad de Python en Guadalajara",
+    "theme": {
+      "bg_color": "#FFE566",
+      "primary_color": "#D83B3B",
+      "secondary_color": "#4391C1",
+      "tertiary_color": "#4D9457",
+      "highlight_color": "#EFCA2F",
+      "text_color": "#000000",
+      "logo_bg": "#4D9457"
+    },
+    "output_file": "index.html"
+  },
+  "links": [
+    {
+      "title": "Próximo Evento: TBD",
+      "url": "https://pythonistas-gdl.org/",
+      "icon": "📅",
+      "style": "primary",
+      "badge": "Nuevo",
+      "enabled": true,
+      "id": "evento"
+    },
+    {
+      "title": "Registrate: pythonistas-gdl.org",
+      "url": "https://pythonistas-gdl.org",
+      "icon": "🎟️",
+      "style": "highlight",
+      "badge": null,
+      "enabled": true,
+      "id": "registro"
+    },
+    {
+      "title": "Poetry: Package Manager por Daniel Delgado",
+      "url": "https://pythonistas-gdl.org/",
+      "icon": "👨‍💻",
+      "style": "tertiary",
+      "badge": null,
+      "enabled": true,
+      "id": "poetry"
+    },
+    {
+      "title": "Discord",
+      "url": "https://discord.gg/HcvW3r2Wfu",
+      "icon": "💬",
+      "style": "default",
+      "badge": null,
+      "enabled": true,
+      "id": "discord"
+    },
+    {
+      "title": "LinkedIn",
+      "url": "https://www.linkedin.com/groups/13193010/",
+      "icon": "💼",
+      "style": "default",
+      "badge": null,
+      "enabled": true,
+      "id": "linkedin"
+    },
+    {
+      "title": "TikTok",
+      "url": "https://www.tiktok.com/@pythonistas_gdl",
+      "icon": "🎵",
+      "style": "default",
+      "badge": null,
+      "enabled": true,
+      "id": "tiktok"
+    },
+    {
+      "title": "YouTube",
+      "url": "https://www.youtube.com/@PythonistasGDL",
+      "icon": "🎬",
+      "style": "default",
+      "badge": null,
+      "enabled": true,
+      "id": "youtube"
+    },
+    {
+      "title": "Twitter/X",
+      "url": "https://x.com/pythonistas_gdl/",
+      "icon": "🐦",
+      "style": "default",
+      "badge": null,
+      "enabled": true,
+      "id": "twitter"
+    },
+    {
+      "title": "Instagram",
+      "url": "https://www.instagram.com/pythonistas_gdl/",
+      "icon": "📷",
+      "style": "default",
+      "badge": null,
+      "enabled": true,
+      "id": "instagram"
+    },
+    {
+      "title": "Síguenos en Facebook",
+      "url": "https://www.facebook.com/PythonistasGdl/",
+      "icon": "📘",
+      "style": "default",
+      "badge": null,
+      "enabled": true,
+      "id": "facebook"
+    }
+  ]
+}
