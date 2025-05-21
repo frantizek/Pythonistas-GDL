@@ -4,12 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pythonistas GDL</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Arial', sans-serif;
+            font-family: 'Poppins', sans-serif;
         }
         
         body {
@@ -80,56 +81,83 @@
         }
         
         .link {
-            background-color: white;
-            border: 2px solid #000000;
-            border-radius: 8px;
-            padding: 1rem;
-            text-align: center;
-            text-decoration: none;
-            color: #000000;
-            font-weight: bold;
-            transition: transform 0.2s, box-shadow 0.2s;
             display: flex;
             align-items: center;
-            position: relative;
-            overflow: hidden;
+            justify-content: center;
+            background-color: white;
+            border: 2px solid #000000;
+            border-radius: 25px;
+            padding: 12px;
+            text-decoration: none;
+            color: #000000;
+            font-size: 1.1rem;
+            font-weight: 600;
+            transition: transform 0.2s, background-color 0.2s, color 0.2s;
+            width: 100%;
+            box-sizing: border-box;
         }
         
         .link:hover {
-            transform: translateY(-3px);
+            transform: scale(1.05);
             box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
         }
         
         .link.primary {
             background-color: #D83B3B;
+            border-color: #D83B3B;
+            color: white;
+        }
+        
+        .link.primary:hover {
+            background-color: #b93030; /* Darkened primary color for hover */
+            border-color: #b93030;
             color: white;
         }
         
         .link.secondary {
             background-color: #4391C1;
+            border-color: #4391C1;
+            color: white;
+        }
+        
+        .link.secondary:hover {
+            background-color: #397ca3; /* Darkened secondary color for hover */
+            border-color: #397ca3;
             color: white;
         }
         
         .link.tertiary {
             background-color: #4D9457;
+            border-color: #4D9457;
+            color: white;
+        }
+        
+        .link.tertiary:hover {
+            background-color: #407a49; /* Darkened tertiary color for hover */
+            border-color: #407a49;
             color: white;
         }
         
         .link.highlight {
             background-color: #EFCA2F;
+            border-color: #EFCA2F;
+            color: #000000;
+        }
+        
+        .link.highlight:hover {
+            background-color: #d6b326; /* Darkened highlight color for hover */
+            border-color: #d6b326;
             color: #000000;
         }
         
         .link-icon {
-            width: 30px;
-            height: 30px;
+            width: 24px;
+            height: 24px;
             margin-right: 10px;
             display: flex;
             justify-content: center;
             align-items: center;
-            background-color: rgba(255, 255, 255, 0.2);
-            border-radius: 50%;
-            padding: 5px;
+            font-size: 1rem;
         }
         
         .footer {
@@ -150,9 +178,14 @@
             z-index: -1;
         }
         
-        @media (max-width: 480px) {
+        @media (max-width: 600px) {
             h1 {
                 font-size: 1.5rem;
+            }
+            
+            .link {
+                font-size: 1rem;
+                padding: 10px;
             }
             
             .snake-decoration {

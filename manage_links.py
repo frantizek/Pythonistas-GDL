@@ -1,4 +1,4 @@
-1#!/usr/bin/env python3
+#!/usr/bin/env python3
 """
 Pythonistas GDL Linktr.ee Page Manager
 
@@ -281,12 +281,13 @@ class LinkTreeManager:
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{self.config['logo_text']}</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <style>
         * {{
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Arial', sans-serif;
+            font-family: 'Poppins', sans-serif;
         }}
         
         body {{
@@ -357,56 +358,83 @@ class LinkTreeManager:
         }}
         
         .link {{
-            background-color: white;
-            border: 2px solid {self.config['theme']['text_color']};
-            border-radius: 8px;
-            padding: 1rem;
-            text-align: center;
-            text-decoration: none;
-            color: {self.config['theme']['text_color']};
-            font-weight: bold;
-            transition: transform 0.2s, box-shadow 0.2s;
             display: flex;
             align-items: center;
-            position: relative;
-            overflow: hidden;
+            justify-content: center;
+            background-color: white;
+            border: 2px solid {self.config['theme']['text_color']};
+            border-radius: 25px;
+            padding: 12px;
+            text-decoration: none;
+            color: {self.config['theme']['text_color']};
+            font-size: 1.1rem;
+            font-weight: 600;
+            transition: transform 0.2s, background-color 0.2s, color 0.2s;
+            width: 100%;
+            box-sizing: border-box;
         }}
         
         .link:hover {{
-            transform: translateY(-3px);
+            transform: scale(1.05);
             box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
         }}
         
         .link.primary {{
             background-color: {self.config['theme']['primary_color']};
+            border-color: {self.config['theme']['primary_color']};
+            color: white;
+        }}
+        
+        .link.primary:hover {{
+            background-color: #b93030; /* Darkened primary color for hover */
+            border-color: #b93030;
             color: white;
         }}
         
         .link.secondary {{
             background-color: {self.config['theme']['secondary_color']};
+            border-color: {self.config['theme']['secondary_color']};
+            color: white;
+        }}
+        
+        .link.secondary:hover {{
+            background-color: #397ca3; /* Darkened secondary color for hover */
+            border-color: #397ca3;
             color: white;
         }}
         
         .link.tertiary {{
             background-color: {self.config['theme']['tertiary_color']};
+            border-color: {self.config['theme']['tertiary_color']};
+            color: white;
+        }}
+        
+        .link.tertiary:hover {{
+            background-color: #407a49; /* Darkened tertiary color for hover */
+            border-color: #407a49;
             color: white;
         }}
         
         .link.highlight {{
             background-color: {self.config['theme']['highlight_color']};
+            border-color: {self.config['theme']['highlight_color']};
+            color: {self.config['theme']['text_color']};
+        }}
+        
+        .link.highlight:hover {{
+            background-color: #d6b326; /* Darkened highlight color for hover */
+            border-color: #d6b326;
             color: {self.config['theme']['text_color']};
         }}
         
         .link-icon {{
-            width: 30px;
-            height: 30px;
+            width: 24px;
+            height: 24px;
             margin-right: 10px;
             display: flex;
             justify-content: center;
             align-items: center;
-            background-color: rgba(255, 255, 255, 0.2);
-            border-radius: 50%;
-            padding: 5px;
+            font-size: 1rem;
         }}
         
         .footer {{
@@ -427,9 +455,14 @@ class LinkTreeManager:
             z-index: -1;
         }}
         
-        @media (max-width: 480px) {{
+        @media (max-width: 600px) {{
             h1 {{
                 font-size: 1.5rem;
+            }}
+            
+            .link {{
+                font-size: 1rem;
+                padding: 10px;
             }}
             
             .snake-decoration {{
@@ -533,7 +566,11 @@ def interactive_menu():
         print("10. Save configuration")
         print("0. Exit")
         
-        choice = input("\nEnter your choice (0-10): ")
+        try:
+            choice = input("\nEnter your choice (0-10): ")
+        except EOFError:
+            print("\nEOF detected. Exiting...")
+            break
         
         if choice == '0':
             break
@@ -548,32 +585,42 @@ def interactive_menu():
         
         elif choice == '2':
             print("\n--- Add New Link ---")
-            title = input("Enter link title: ")
-            url = input("Enter URL: ")
-            icon = input("Enter emoji icon (default 🔗): ") or "🔗"
-            
-            print("\nSelect style:")
-            print("1. Default (white)")
-            print("2. Primary (red)")
-            print("3. Secondary (blue)")
-            print("4. Tertiary (green)")
-            print("5. Highlight (yellow)")
-            
-            style_choice = input("Enter style choice (1-5): ")
-            style_map = {
-                '1': 'default',
-                '2': 'primary',
-                '3': 'secondary',
-                '4': 'tertiary',
-                '5': 'highlight'
-            }
-            style = style_map.get(style_choice, 'default')
-            
-            badge = input("Enter badge text (leave empty for none): ")
-            if badge == "":
-                badge = None
+            try:
+                title = input("Enter link title: ")
+                if not title:  # Handle empty input
+                    print("Title cannot be empty. Returning to menu.")
+                    continue
+                url = input("Enter URL: ")
+                if not url:  # Handle empty input
+                    print("URL cannot be empty. Returning to menu.")
+                    continue
+                icon = input("Enter emoji icon (default 🔗): ") or "🔗"
                 
-            manager.add_link(title, url, icon, style, badge)
+                print("\nSelect style:")
+                print("1. Default (white)")
+                print("2. Primary (red)")
+                print("3. Secondary (blue)")
+                print("4. Tertiary (green)")
+                print("5. Highlight (yellow)")
+                
+                style_choice = input("Enter style choice (1-5): ")
+                style_map = {
+                    '1': 'default',
+                    '2': 'primary',
+                    '3': 'secondary',
+                    '4': 'tertiary',
+                    '5': 'highlight'
+                }
+                style = style_map.get(style_choice, 'default')
+                
+                badge = input("Enter badge text (leave empty for none): ")
+                if badge == "":
+                    badge = None
+                    
+                manager.add_link(title, url, icon, style, badge)
+            except EOFError:
+                print("\nEOF detected. Returning to menu...")
+                continue
         
         elif choice == '3':
             print("\n--- Update Link ---")
@@ -618,8 +665,9 @@ def interactive_menu():
                     manager.update_link(link_id, title=title, url=url, icon=icon, style=style, badge=badge)
                 else:
                     print("Invalid selection.")
-            except ValueError:
-                print("Please enter a valid number.")
+            except (ValueError, EOFError):
+                print("Invalid input or EOF detected. Returning to menu...")
+                continue
         
         elif choice == '4':
             print("\n--- Reorder Links ---")
@@ -643,8 +691,9 @@ def interactive_menu():
                     # Create new ID order
                     new_id_order = [current_ids[i] for i in new_order]
                     manager.reorder_links(new_id_order)
-            except ValueError:
-                print("Please enter valid numbers separated by commas.")
+            except (ValueError, EOFError):
+                print("Invalid input or EOF detected. Returning to menu...")
+                continue
         
         elif choice == '5':
             print("\n--- Enable/Disable Link ---")
@@ -664,8 +713,9 @@ def interactive_menu():
                         manager.enable_link(link_id)
                 else:
                     print("Invalid selection.")
-            except ValueError:
-                print("Please enter a valid number.")
+            except (ValueError, EOFError):
+                print("Invalid input or EOF detected. Returning to menu...")
+                continue
         
         elif choice == '6':
             print("\n--- Delete Link ---")
@@ -681,8 +731,9 @@ def interactive_menu():
                         manager.delete_link(link_id)
                 else:
                     print("Invalid selection.")
-            except ValueError:
-                print("Please enter a valid number.")
+            except (ValueError, EOFError):
+                print("Invalid input or EOF detected. Returning to menu...")
+                continue
                 
         elif choice == '7':
             print("\n--- Update Theme Colors ---")
@@ -709,8 +760,9 @@ def interactive_menu():
                         print("Invalid color format. Please use hex format (e.g. #FFE566)")
                 else:
                     print("Invalid selection.")
-            except ValueError:
-                print("Please enter a valid number.")
+            except (ValueError, EOFError):
+                print("Invalid input or EOF detected. Returning to menu...")
+                continue
                 
         elif choice == '8':
             print("\n--- Update Basic Configuration ---")
@@ -739,8 +791,9 @@ def interactive_menu():
                         manager.update_config(**{config_key: new_value})
                 else:
                     print("Invalid selection.")
-            except ValueError:
-                print("Please enter a valid number.")
+            except (ValueError, EOFError):
+                print("Invalid input or EOF detected. Returning to menu...")
+                continue
                 
         elif choice == '9':
             print("\n--- Generating HTML ---")
@@ -755,8 +808,12 @@ def interactive_menu():
             print("Invalid choice. Please try again.")
     
     # Final save prompt
-    save = input("\nSave configuration before exiting? (y/n): ")
-    if save.lower() == 'y':
+    try:
+        save = input("\nSave configuration before exiting? (y/n): ")
+        if save.lower() == 'y':
+            manager.save_config()
+    except EOFError:
+        print("\nEOF detected. Saving configuration and exiting...")
         manager.save_config()
     
     print("Thank you for using Pythonistas GDL Linktr.ee Manager!")
