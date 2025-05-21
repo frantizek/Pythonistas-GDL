@@ -372,6 +372,7 @@ class LinkTreeManager:
             transition: transform 0.2s, background-color 0.2s, color 0.2s;
             width: 100%;
             box-sizing: border-box;
+            position: relative;
         }}
         
         .link:hover {{
@@ -437,6 +438,12 @@ class LinkTreeManager:
             font-size: 1rem;
         }}
         
+        .link-content {{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }}
+        
         .footer {{
             margin-top: 3rem;
             text-align: center;
@@ -475,12 +482,28 @@ class LinkTreeManager:
             position: absolute;
             top: -8px;
             right: -8px;
-            background-color: {self.config['theme']['primary_color']};
-            color: white;
+            background-color: white;
+            color: {self.config['theme']['text_color']};
             font-size: 0.7rem;
             padding: 4px 8px;
             border-radius: 10px;
-            border: 1px solid white;
+            border: 1px solid {self.config['theme']['text_color']};
+        }}
+        
+        .link.primary .badge {{
+            border-color: {self.config['theme']['primary_color']};
+        }}
+        
+        .link.secondary .badge {{
+            border-color: {self.config['theme']['secondary_color']};
+        }}
+        
+        .link.tertiary .badge {{
+            border-color: {self.config['theme']['tertiary_color']};
+        }}
+        
+        .link.highlight .badge {{
+            border-color: {self.config['theme']['highlight_color']};
         }}
     </style>
 </head>
@@ -524,8 +547,10 @@ class LinkTreeManager:
                 badge_html = f'<span class="badge">{link["badge"]}</span>' if link['badge'] else ''
                 
                 html += f"""            <a href="{link['url']}" class="link{style_class}" id="{link['id']}">
-                <div class="link-icon">{link['icon']}</div>
-                {link['title']}
+                <div class="link-content">
+                    <div class="link-icon">{link['icon']}</div>
+                    {link['title']}
+                </div>
                 {badge_html}
             </a>
             
@@ -616,6 +641,11 @@ def interactive_menu():
                 badge = input("Enter badge text (leave empty for none): ")
                 if badge == "":
                     badge = None
+                elif badge.lower() == "none":
+                    badge = None
+                elif not badge.strip():
+                    print("Badge cannot be empty or whitespace. Setting to None.")
+                    badge = None
                     
                 manager.add_link(title, url, icon, style, badge)
             except EOFError:
@@ -660,6 +690,9 @@ def interactive_menu():
                     if badge == "":
                         badge = manager.links[idx]['badge']
                     elif badge.lower() == "none":
+                        badge = None
+                    elif not badge.strip():
+                        print("Badge cannot be empty or whitespace. Setting to None.")
                         badge = None
                         
                     manager.update_link(link_id, title=title, url=url, icon=icon, style=style, badge=badge)

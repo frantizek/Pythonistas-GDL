@@ -95,6 +95,7 @@
             transition: transform 0.2s, background-color 0.2s, color 0.2s;
             width: 100%;
             box-sizing: border-box;
+            position: relative;
         }
         
         .link:hover {
@@ -160,6 +161,12 @@
             font-size: 1rem;
         }
         
+        .link-content {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
         .footer {
             margin-top: 3rem;
             text-align: center;
@@ -198,12 +205,28 @@
             position: absolute;
             top: -8px;
             right: -8px;
-            background-color: #D83B3B;
-            color: white;
+            background-color: white;
+            color: #000000;
             font-size: 0.7rem;
             padding: 4px 8px;
             border-radius: 10px;
-            border: 1px solid white;
+            border: 1px solid #000000;
+        }
+        
+        .link.primary .badge {
+            border-color: #D83B3B;
+        }
+        
+        .link.secondary .badge {
+            border-color: #4391C1;
+        }
+        
+        .link.tertiary .badge {
+            border-color: #4D9457;
+        }
+        
+        .link.highlight .badge {
+            border-color: #EFCA2F;
         }
     </style>
 </head>
@@ -236,62 +259,82 @@
         
         <div class="links">
             <a href="https://pythonistas-gdl.org/" class="link primary" id="evento">
-                <div class="link-icon">📅</div>
-                Próximo Evento: TBD
+                <div class="link-content">
+                    <div class="link-icon">📅</div>
+                    Próximo Evento: TBD
+                </div>
                 <span class="badge">Nuevo</span>
             </a>
             
             <a href="https://pythonistas-gdl.org" class="link highlight" id="registro">
-                <div class="link-icon">🎟️</div>
-                Registrate: pythonistas-gdl.org
+                <div class="link-content">
+                    <div class="link-icon">🎟️</div>
+                    Registrate: pythonistas-gdl.org
+                </div>
                 
             </a>
             
             <a href="https://pythonistas-gdl.org/" class="link tertiary" id="poetry">
-                <div class="link-icon">👨‍💻</div>
-                Poetry: Package Manager por Daniel Delgado
+                <div class="link-content">
+                    <div class="link-icon">👨‍💻</div>
+                    Poetry: Package Manager por Daniel Delgado
+                </div>
                 
             </a>
             
             <a href="https://discord.gg/HcvW3r2Wfu" class="link" id="discord">
-                <div class="link-icon">💬</div>
-                Discord
+                <div class="link-content">
+                    <div class="link-icon">💬</div>
+                    Discord
+                </div>
                 
             </a>
             
             <a href="https://www.linkedin.com/groups/13193010/" class="link" id="linkedin">
-                <div class="link-icon">💼</div>
-                LinkedIn
+                <div class="link-content">
+                    <div class="link-icon">💼</div>
+                    LinkedIn
+                </div>
                 
             </a>
             
             <a href="https://www.tiktok.com/@pythonistas_gdl" class="link" id="tiktok">
-                <div class="link-icon">🎵</div>
-                TikTok
+                <div class="link-content">
+                    <div class="link-icon">🎵</div>
+                    TikTok
+                </div>
                 
             </a>
             
             <a href="https://www.youtube.com/@PythonistasGDL" class="link" id="youtube">
-                <div class="link-icon">🎬</div>
-                YouTube
+                <div class="link-content">
+                    <div class="link-icon">🎬</div>
+                    YouTube
+                </div>
                 
             </a>
             
             <a href="https://x.com/pythonistas_gdl/" class="link" id="twitter">
-                <div class="link-icon">🐦</div>
-                Twitter/X
+                <div class="link-content">
+                    <div class="link-icon">🐦</div>
+                    Twitter/X
+                </div>
                 
             </a>
             
             <a href="https://www.instagram.com/pythonistas_gdl/" class="link" id="instagram">
-                <div class="link-icon">📷</div>
-                Instagram
+                <div class="link-content">
+                    <div class="link-icon">📷</div>
+                    Instagram
+                </div>
                 
             </a>
             
             <a href="https://www.facebook.com/PythonistasGdl/" class="link" id="facebook">
-                <div class="link-icon">📘</div>
-                Síguenos en Facebook
+                <div class="link-content">
+                    <div class="link-icon">📘</div>
+                    Síguenos en Facebook
+                </div>
                 
             </a>
             
