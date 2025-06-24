@@ -17,19 +17,19 @@
   },
   "links": [
     {
-      "title": "Próximo Evento: TBD",
-      "url": "https://pythonistas-gdl.org/",
+      "title": "Reunión del Viernes 27 de Junio 2025",
+      "url": "https://pythonistas-gdl.org/reunion-viernes-27-junio-2025.html",
       "icon": "📅",
       "style": "primary",
-      "badge": "Nuevo",
+      "badge": "Reunion",
       "enabled": true,
       "id": "evento"
     },
     {
-      "title": "Registrate: pythonistas-gdl.org",
+      "title": "https://pythonistas-gdl.org/",
       "url": "https://pythonistas-gdl.org",
       "icon": "🎟️",
-      "style": "highlight",
+      "style": "secondary",
       "badge": null,
       "enabled": true,
       "id": "registro"

@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+0#!/usr/bin/env python3
 """
 Pythonistas GDL Linktr.ee Page Manager
 
@@ -18,6 +18,51 @@ import os
 import re
 from datetime import datetime
 from typing import Dict, List, Optional, Union
+
+# Social media platform mapping
+SOCIAL_MEDIA_PLATFORMS = {
+    "facebook": {
+        "name": "Facebook",
+        "icon_path": "images/facebook.png",
+        "icon_type": "image"
+    },
+    "instagram": {
+        "name": "Instagram",
+        "icon_path": "images/instagram.png",
+        "icon_type": "image"
+    },
+    "twitter": {
+        "name": "Twitter/X",
+        "icon_path": "images/twitter.png",
+        "icon_type": "image"
+    },
+    "youtube": {
+        "name": "YouTube",
+        "icon_path": "images/youtube.png",
+        "icon_type": "image"
+    },
+    "tiktok": {
+        "name": "TikTok",
+        "icon_path": "images/tiktok.png",
+        "icon_type": "image"
+    },
+    "linkedin": {
+        "name": "LinkedIn",
+        "icon_path": "images/linkedin.png",
+        "icon_type": "image"
+    },
+    "discord": {
+        "name": "Discord",
+        "icon_path": "images/discord.png",
+        "icon_type": "image"
+    },
+    "telegram": {
+        "name": "Telegram",
+        "icon_path": "images/telegram.png",
+        "icon_type": "image"
+    },
+    # Add more platforms as needed
+}
 
 # Base configuration
 CONFIG = {
@@ -174,18 +219,27 @@ class LinkTreeManager:
         with open(self.config_file, 'w', encoding='utf-8') as f:
             json.dump(data, f, indent=2, ensure_ascii=False)
         print(f"Configuration saved to {self.config_file}")
-    
+
     def add_link(self, title, url, icon="🔗", style="default", badge=None, enabled=True, id=None):
         """Add a new link to the list"""
+        # Try to auto-detect social media
+        social_media = self.auto_detect_social_media(url)
+
+        if social_media and id is None:
+            # Use the detected platform ID
+            id = social_media["id"]
+            if not title or title == "":
+                title = social_media["title"]
+
         if id is None:
             # Generate an ID from the title
             id = re.sub(r'[^a-z0-9]', '', title.lower())
-            
+
         # Check if ID already exists
         existing_ids = [link['id'] for link in self.links]
         if id in existing_ids:
             id = f"{id}_{len(self.links)}"
-            
+
         new_link = {
             "title": title,
             "url": url,
@@ -195,7 +249,7 @@ class LinkTreeManager:
             "enabled": enabled,
             "id": id
         }
-        
+
         self.links.append(new_link)
         print(f"Added new link: {title}")
     
@@ -271,290 +325,326 @@ class LinkTreeManager:
             if key in self.config and key != 'theme':
                 self.config[key] = value
         print("Configuration updated")
-    
+
+    def auto_detect_social_media(self, url):
+        """Auto-detect social media platform from URL and set appropriate icon"""
+        for platform_id, platform in SOCIAL_MEDIA_PLATFORMS.items():
+            if platform_id in url.lower():
+                return {
+                    "id": platform_id,
+                    "title": platform["name"],
+                    "icon": "🔗"  # Default fallback, but we'll use the image
+                }
+        return None
+
     def generate_html(self):
         """Generate HTML for the Linktr.ee style page"""
         # HTML template with placeholders
         html = f"""<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{self.config['logo_text']}</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-    <style>
-        * {{
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
-        }}
-        
-        body {{
-            background-color: {self.config['theme']['bg_color']};
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 2rem 1rem;
-            min-height: 100vh;
-        }}
-        
-        .container {{
-            max-width: 600px;
-            width: 100%;
-        }}
-        
-        .profile {{
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin-bottom: 2rem;
-        }}
-        
-        .logo {{
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            background-color: {self.config['theme']['bg_color']};
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-bottom: 1rem;
-            position: relative;
-            overflow: hidden;
-            border: 3px solid {self.config['theme']['text_color']};
-        }}
-        
-        .logo-text {{
-            position: absolute;
-            bottom: 0;
-            background-color: rgba(0, 0, 0, 0.7);
-            color: white;
-            width: 100%;
-            text-align: center;
-            padding: 4px;
-            font-size: 12px;
-        }}
-        
-        h1 {{
-            font-size: 1.8rem;
-            margin-bottom: 0.5rem;
-            text-align: center;
-            color: {self.config['theme']['text_color']};
-        }}
-        
-        .description {{
-            text-align: center;
-            margin-bottom: 2rem;
-            max-width: 500px;
-            color: {self.config['theme']['text_color']};
-        }}
-        
-        .links {{
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-            width: 100%;
-        }}
-        
-        .link {{
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background-color: white;
-            border: 2px solid {self.config['theme']['text_color']};
-            border-radius: 25px;
-            padding: 12px;
-            text-decoration: none;
-            color: {self.config['theme']['text_color']};
-            font-size: 1.1rem;
-            font-weight: 600;
-            transition: transform 0.2s, background-color 0.2s, color 0.2s;
-            width: 100%;
-            box-sizing: border-box;
-            position: relative;
-        }}
-        
-        .link:hover {{
-            transform: scale(1.05);
-            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-        }}
-        
-        .link.primary {{
-            background-color: {self.config['theme']['primary_color']};
-            border-color: {self.config['theme']['primary_color']};
-            color: white;
-        }}
-        
-        .link.primary:hover {{
-            background-color: #b93030; /* Darkened primary color for hover */
-            border-color: #b93030;
-            color: white;
-        }}
-        
-        .link.secondary {{
-            background-color: {self.config['theme']['secondary_color']};
-            border-color: {self.config['theme']['secondary_color']};
-            color: white;
-        }}
-        
-        .link.secondary:hover {{
-            background-color: #397ca3; /* Darkened secondary color for hover */
-            border-color: #397ca3;
-            color: white;
-        }}
-        
-        .link.tertiary {{
-            background-color: {self.config['theme']['tertiary_color']};
-            border-color: {self.config['theme']['tertiary_color']};
-            color: white;
-        }}
-        
-        .link.tertiary:hover {{
-            background-color: #407a49; /* Darkened tertiary color for hover */
-            border-color: #407a49;
-            color: white;
-        }}
-        
-        .link.highlight {{
-            background-color: {self.config['theme']['highlight_color']};
-            border-color: {self.config['theme']['highlight_color']};
-            color: {self.config['theme']['text_color']};
-        }}
-        
-        .link.highlight:hover {{
-            background-color: #d6b326; /* Darkened highlight color for hover */
-            border-color: #d6b326;
-            color: {self.config['theme']['text_color']};
-        }}
-        
-        .link-icon {{
-            width: 24px;
-            height: 24px;
-            margin-right: 10px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 1rem;
-        }}
-        
-        .link-content {{
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }}
-        
-        .footer {{
-            margin-top: 3rem;
-            text-align: center;
-            font-size: 0.8rem;
-            opacity: 0.7;
-            color: {self.config['theme']['text_color']};
-        }}
-        
-        .snake-decoration {{
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            width: 150px;
-            height: 150px;
-            opacity: 0.1;
-            z-index: -1;
-        }}
-        
-        @media (max-width: 600px) {{
+    <html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>{self.config['logo_text']}</title>
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+        <style>
+            * {{
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+                font-family: 'Poppins', sans-serif;
+            }}
+
+            body {{
+                background-color: {self.config['theme']['bg_color']};
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                padding: 2rem 1rem;
+                min-height: 100vh;
+            }}
+
+            .container {{
+                max-width: 600px;
+                width: 100%;
+            }}
+
+            .profile {{
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                margin-bottom: 2rem;
+            }}
+
+            .logo {{
+                width: 120px;
+                height: 120px;
+                border-radius: 50%;
+                background-color: {self.config['theme']['bg_color']};
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                margin-bottom: 1rem;
+                position: relative;
+                overflow: hidden;
+                border: 3px solid {self.config['theme']['text_color']};
+            }}
+
+            .logo-text {{
+                position: absolute;
+                bottom: 0;
+                background-color: rgba(0, 0, 0, 0.7);
+                color: white;
+                width: 100%;
+                text-align: center;
+                padding: 4px;
+                font-size: 12px;
+            }}
+
             h1 {{
-                font-size: 1.5rem;
+                font-size: 1.8rem;
+                margin-bottom: 0.5rem;
+                text-align: center;
+                color: {self.config['theme']['text_color']};
             }}
-            
+
+            .description {{
+                text-align: center;
+                margin-bottom: 2rem;
+                max-width: 500px;
+                color: {self.config['theme']['text_color']};
+            }}
+
+            .links {{
+                display: flex;
+                flex-direction: column;
+                gap: 1rem;
+                width: 100%;
+            }}
+
             .link {{
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                background-color: white;
+                border: 2px solid {self.config['theme']['text_color']};
+                border-radius: 25px;
+                padding: 12px;
+                text-decoration: none;
+                color: {self.config['theme']['text_color']};
+                font-size: 1.1rem;
+                font-weight: 600;
+                transition: transform 0.2s, background-color 0.2s, color 0.2s;
+                width: 100%;
+                box-sizing: border-box;
+                position: relative;
+            }}
+
+            .link:hover {{
+                transform: scale(1.05);
+                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+            }}
+
+            .link.primary {{
+                background-color: {self.config['theme']['primary_color']};
+                border-color: {self.config['theme']['primary_color']};
+                color: white;
+            }}
+
+            .link.primary:hover {{
+                background-color: #b93030; /* Darkened primary color for hover */
+                border-color: #b93030;
+                color: white;
+            }}
+
+            .link.secondary {{
+                background-color: {self.config['theme']['secondary_color']};
+                border-color: {self.config['theme']['secondary_color']};
+                color: white;
+            }}
+
+            .link.secondary:hover {{
+                background-color: #397ca3; /* Darkened secondary color for hover */
+                border-color: #397ca3;
+                color: white;
+            }}
+
+            .link.tertiary {{
+                background-color: {self.config['theme']['tertiary_color']};
+                border-color: {self.config['theme']['tertiary_color']};
+                color: white;
+            }}
+
+            .link.tertiary:hover {{
+                background-color: #407a49; /* Darkened tertiary color for hover */
+                border-color: #407a49;
+                color: white;
+            }}
+
+            .link.highlight {{
+                background-color: {self.config['theme']['highlight_color']};
+                border-color: {self.config['theme']['highlight_color']};
+                color: {self.config['theme']['text_color']};
+            }}
+
+            .link.highlight:hover {{
+                background-color: #d6b326; /* Darkened highlight color for hover */
+                border-color: #d6b326;
+                color: {self.config['theme']['text_color']};
+            }}
+
+            .link-icon {{
+                width: 24px;
+                height: 24px;
+                margin-right: 10px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
                 font-size: 1rem;
-                padding: 10px;
             }}
-            
+
+            .link-content {{
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }}
+
+            .social-icon {{
+                width: 24px;
+                height: 24px;
+                margin-right: 10px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }}
+
+            .social-icon img {{
+                width: 100%;
+                height: 100%;
+                object-fit: contain;
+            }}
+
+            .footer {{
+                margin-top: 3rem;
+                text-align: center;
+                font-size: 0.8rem;
+                opacity: 0.7;
+                color: {self.config['theme']['text_color']};
+            }}
+
             .snake-decoration {{
-                width: 100px;
-                height: 100px;
+                position: absolute;
+                top: 10px;
+                right: 10px;
+                width: 150px;
+                height: 150px;
+                opacity: 0.1;
+                z-index: -1;
             }}
-        }}
-        
-        .badge {{
-            position: absolute;
-            top: -8px;
-            right: -8px;
-            background-color: white;
-            color: {self.config['theme']['text_color']};
-            font-size: 0.7rem;
-            padding: 4px 8px;
-            border-radius: 10px;
-            border: 1px solid {self.config['theme']['text_color']};
-        }}
-        
-        .link.primary .badge {{
-            border-color: {self.config['theme']['primary_color']};
-        }}
-        
-        .link.secondary .badge {{
-            border-color: {self.config['theme']['secondary_color']};
-        }}
-        
-        .link.tertiary .badge {{
-            border-color: {self.config['theme']['tertiary_color']};
-        }}
-        
-        .link.highlight .badge {{
-            border-color: {self.config['theme']['highlight_color']};
-        }}
-    </style>
-</head>
-<body>
-    <!-- Snake decoration -->
-    <div class="snake-decoration">
-        <!-- SVG of a Python-like snake -->
-        <svg width="100%" height="100%" viewBox="0 0 100 100">
-            <path d="M50,15 C70,15 80,25 80,40 C80,55 70,65 50,65 C30,65 20,55 20,40 C20,25 30,15 50,15 Z" fill="{self.config['theme']['logo_bg']}" />
-            <path d="M35,40 Q50,20 65,40" stroke="black" stroke-width="4" fill="none" />
-            <circle cx="35" cy="40" r="5" fill="{self.config['theme']['primary_color']}" />
-            <circle cx="65" cy="40" r="5" fill="{self.config['theme']['primary_color']}" />
-        </svg>
-    </div>
-    
-    <div class="container">
-        <div class="profile">
-            <div class="logo">
-                <svg width="80" height="80" viewBox="0 0 100 100">
-                    <path d="M50,15 C70,15 80,25 80,40 C80,55 70,65 50,65 C30,65 20,55 20,40 C20,25 30,15 50,15 Z" fill="{self.config['theme']['logo_bg']}" />
-                    <path d="M35,40 Q50,20 65,40" stroke="black" stroke-width="4" fill="none" />
-                    <circle cx="35" cy="40" r="5" fill="{self.config['theme']['primary_color']}" />
-                    <circle cx="65" cy="40" r="5" fill="{self.config['theme']['primary_color']}" />
-                </svg>
-                <div class="logo-text">{self.config['logo_text']}</div>
-            </div>
-            <h1>{self.config['title']}</h1>
-            <p class="description">{self.config['description']}</p>
+
+            @media (max-width: 600px) {{
+                h1 {{
+                    font-size: 1.5rem;
+                }}
+
+                .link {{
+                    font-size: 1rem;
+                    padding: 10px;
+                }}
+
+                .snake-decoration {{
+                    width: 100px;
+                    height: 100px;
+                }}
+            }}
+
+            .badge {{
+                position: absolute;
+                top: -8px;
+                right: -8px;
+                background-color: white;
+                color: {self.config['theme']['text_color']};
+                font-size: 0.7rem;
+                padding: 4px 8px;
+                border-radius: 10px;
+                border: 1px solid {self.config['theme']['text_color']};
+            }}
+
+            .link.primary .badge {{
+                border-color: {self.config['theme']['primary_color']};
+            }}
+
+            .link.secondary .badge {{
+                border-color: {self.config['theme']['secondary_color']};
+            }}
+
+            .link.tertiary .badge {{
+                border-color: {self.config['theme']['tertiary_color']};
+            }}
+
+            .link.highlight .badge {{
+                border-color: {self.config['theme']['highlight_color']};
+            }}
+        </style>
+    </head>
+    <body>
+        <!-- Snake decoration -->
+        <div class="snake-decoration">
+            <!-- SVG of a Python-like snake -->
+            <svg width="100%" height="100%" viewBox="0 0 100 100">
+                <path d="M50,15 C70,15 80,25 80,40 C80,55 70,65 50,65 C30,65 20,55 20,40 C20,25 30,15 50,15 Z" fill="{self.config['theme']['logo_bg']}" />
+                <path d="M35,40 Q50,20 65,40" stroke="black" stroke-width="4" fill="none" />
+                <circle cx="35" cy="40" r="5" fill="{self.config['theme']['primary_color']}" />
+                <circle cx="65" cy="40" r="5" fill="{self.config['theme']['primary_color']}" />
+            </svg>
         </div>
-        
-        <div class="links">
-"""
-        
+
+        <div class="container">
+            <div class="profile">
+                <div class="logo">
+                    <svg width="80" height="80" viewBox="0 0 100 100">
+                        <path d="M50,15 C70,15 80,25 80,40 C80,55 70,65 50,65 C30,65 20,55 20,40 C20,25 30,15 50,15 Z" fill="{self.config['theme']['logo_bg']}" />
+                        <path d="M35,40 Q50,20 65,40" stroke="black" stroke-width="4" fill="none" />
+                        <circle cx="35" cy="40" r="5" fill="{self.config['theme']['primary_color']}" />
+                        <circle cx="65" cy="40" r="5" fill="{self.config['theme']['primary_color']}" />
+                    </svg>
+                    <div class="logo-text">{self.config['logo_text']}</div>
+                </div>
+                <h1>{self.config['title']}</h1>
+                <p class="description">{self.config['description']}</p>
+            </div>
+
+            <div class="links">
+    """
+
         # Add each enabled link
         for link in self.links:
             if link['enabled']:
                 # Add class based on style
                 style_class = f" {link['style']}" if link['style'] != "default" else ""
-                
+
                 # Add badge if exists
                 badge_html = f'<span class="badge">{link["badge"]}</span>' if link['badge'] else ''
-                
+
+                # Check if this is a known social media platform
+                platform_id = link['id'].lower()
+                if platform_id in SOCIAL_MEDIA_PLATFORMS:
+                    # Use the platform-specific image icon
+                    platform = SOCIAL_MEDIA_PLATFORMS[platform_id]
+                    icon_html = f'<div class="social-icon"><img src="{platform["icon_path"]}" alt="{platform["name"]}" /></div>'
+                else:
+                    # Use the emoji icon
+                    icon_html = f'<div class="link-icon">{link["icon"]}</div>'
+
                 html += f"""            <a href="{link['url']}" class="link{style_class}" id="{link['id']}">
-                <div class="link-content">
-                    <div class="link-icon">{link['icon']}</div>
-                    {link['title']}
-                </div>
-                {badge_html}
-            </a>
-            
-"""
+                        <div class="link-content">
+                            {icon_html}
+                            {link['title']}
+                        </div>
+                        {badge_html}
+                    </a>
+
+        """
         
         # Close HTML
         html += f"""        </div>
