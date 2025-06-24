@@ -1,344 +1,359 @@
 <!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pythonistas GDL</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
-        }
-        
-        body {
-            background-color: #FFE566;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 2rem 1rem;
-            min-height: 100vh;
-        }
-        
-        .container {
-            max-width: 600px;
-            width: 100%;
-        }
-        
-        .profile {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin-bottom: 2rem;
-        }
-        
-        .logo {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            background-color: #FFE566;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-bottom: 1rem;
-            position: relative;
-            overflow: hidden;
-            border: 3px solid #000000;
-        }
-        
-        .logo-text {
-            position: absolute;
-            bottom: 0;
-            background-color: rgba(0, 0, 0, 0.7);
-            color: white;
-            width: 100%;
-            text-align: center;
-            padding: 4px;
-            font-size: 12px;
-        }
-        
-        h1 {
-            font-size: 1.8rem;
-            margin-bottom: 0.5rem;
-            text-align: center;
-            color: #000000;
-        }
-        
-        .description {
-            text-align: center;
-            margin-bottom: 2rem;
-            max-width: 500px;
-            color: #000000;
-        }
-        
-        .links {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-            width: 100%;
-        }
-        
-        .link {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background-color: white;
-            border: 2px solid #000000;
-            border-radius: 25px;
-            padding: 12px;
-            text-decoration: none;
-            color: #000000;
-            font-size: 1.1rem;
-            font-weight: 600;
-            transition: transform 0.2s, background-color 0.2s, color 0.2s;
-            width: 100%;
-            box-sizing: border-box;
-            position: relative;
-        }
-        
-        .link:hover {
-            transform: scale(1.05);
-            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-        }
-        
-        .link.primary {
-            background-color: #D83B3B;
-            border-color: #D83B3B;
-            color: white;
-        }
-        
-        .link.primary:hover {
-            background-color: #b93030; /* Darkened primary color for hover */
-            border-color: #b93030;
-            color: white;
-        }
-        
-        .link.secondary {
-            background-color: #4391C1;
-            border-color: #4391C1;
-            color: white;
-        }
-        
-        .link.secondary:hover {
-            background-color: #397ca3; /* Darkened secondary color for hover */
-            border-color: #397ca3;
-            color: white;
-        }
-        
-        .link.tertiary {
-            background-color: #4D9457;
-            border-color: #4D9457;
-            color: white;
-        }
-        
-        .link.tertiary:hover {
-            background-color: #407a49; /* Darkened tertiary color for hover */
-            border-color: #407a49;
-            color: white;
-        }
-        
-        .link.highlight {
-            background-color: #EFCA2F;
-            border-color: #EFCA2F;
-            color: #000000;
-        }
-        
-        .link.highlight:hover {
-            background-color: #d6b326; /* Darkened highlight color for hover */
-            border-color: #d6b326;
-            color: #000000;
-        }
-        
-        .link-icon {
-            width: 24px;
-            height: 24px;
-            margin-right: 10px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 1rem;
-        }
-        
-        .link-content {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .footer {
-            margin-top: 3rem;
-            text-align: center;
-            font-size: 0.8rem;
-            opacity: 0.7;
-            color: #000000;
-        }
-        
-        .snake-decoration {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            width: 150px;
-            height: 150px;
-            opacity: 0.1;
-            z-index: -1;
-        }
-        
-        @media (max-width: 600px) {
+    <html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Pythonistas GDL</title>
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+                font-family: 'Poppins', sans-serif;
+            }
+
+            body {
+                background-color: #FFE566;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                padding: 2rem 1rem;
+                min-height: 100vh;
+            }
+
+            .container {
+                max-width: 600px;
+                width: 100%;
+            }
+
+            .profile {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                margin-bottom: 2rem;
+            }
+
+            .logo {
+                width: 120px;
+                height: 120px;
+                border-radius: 50%;
+                background-color: #FFE566;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                margin-bottom: 1rem;
+                position: relative;
+                overflow: hidden;
+                border: 3px solid #000000;
+            }
+
+            .logo-text {
+                position: absolute;
+                bottom: 0;
+                background-color: rgba(0, 0, 0, 0.7);
+                color: white;
+                width: 100%;
+                text-align: center;
+                padding: 4px;
+                font-size: 12px;
+            }
+
             h1 {
-                font-size: 1.5rem;
+                font-size: 1.8rem;
+                margin-bottom: 0.5rem;
+                text-align: center;
+                color: #000000;
             }
-            
+
+            .description {
+                text-align: center;
+                margin-bottom: 2rem;
+                max-width: 500px;
+                color: #000000;
+            }
+
+            .links {
+                display: flex;
+                flex-direction: column;
+                gap: 1rem;
+                width: 100%;
+            }
+
             .link {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                background-color: white;
+                border: 2px solid #000000;
+                border-radius: 25px;
+                padding: 12px;
+                text-decoration: none;
+                color: #000000;
+                font-size: 1.1rem;
+                font-weight: 600;
+                transition: transform 0.2s, background-color 0.2s, color 0.2s;
+                width: 100%;
+                box-sizing: border-box;
+                position: relative;
+            }
+
+            .link:hover {
+                transform: scale(1.05);
+                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+            }
+
+            .link.primary {
+                background-color: #D83B3B;
+                border-color: #D83B3B;
+                color: white;
+            }
+
+            .link.primary:hover {
+                background-color: #b93030; /* Darkened primary color for hover */
+                border-color: #b93030;
+                color: white;
+            }
+
+            .link.secondary {
+                background-color: #4391C1;
+                border-color: #4391C1;
+                color: white;
+            }
+
+            .link.secondary:hover {
+                background-color: #397ca3; /* Darkened secondary color for hover */
+                border-color: #397ca3;
+                color: white;
+            }
+
+            .link.tertiary {
+                background-color: #4D9457;
+                border-color: #4D9457;
+                color: white;
+            }
+
+            .link.tertiary:hover {
+                background-color: #407a49; /* Darkened tertiary color for hover */
+                border-color: #407a49;
+                color: white;
+            }
+
+            .link.highlight {
+                background-color: #EFCA2F;
+                border-color: #EFCA2F;
+                color: #000000;
+            }
+
+            .link.highlight:hover {
+                background-color: #d6b326; /* Darkened highlight color for hover */
+                border-color: #d6b326;
+                color: #000000;
+            }
+
+            .link-icon {
+                width: 24px;
+                height: 24px;
+                margin-right: 10px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
                 font-size: 1rem;
-                padding: 10px;
             }
-            
+
+            .link-content {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .social-icon {
+                width: 24px;
+                height: 24px;
+                margin-right: 10px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+
+            .social-icon img {
+                width: 100%;
+                height: 100%;
+                object-fit: contain;
+            }
+
+            .footer {
+                margin-top: 3rem;
+                text-align: center;
+                font-size: 0.8rem;
+                opacity: 0.7;
+                color: #000000;
+            }
+
             .snake-decoration {
-                width: 100px;
-                height: 100px;
+                position: absolute;
+                top: 10px;
+                right: 10px;
+                width: 150px;
+                height: 150px;
+                opacity: 0.1;
+                z-index: -1;
             }
-        }
-        
-        .badge {
-            position: absolute;
-            top: -8px;
-            right: -8px;
-            background-color: white;
-            color: #000000;
-            font-size: 0.7rem;
-            padding: 4px 8px;
-            border-radius: 10px;
-            border: 1px solid #000000;
-        }
-        
-        .link.primary .badge {
-            border-color: #D83B3B;
-        }
-        
-        .link.secondary .badge {
-            border-color: #4391C1;
-        }
-        
-        .link.tertiary .badge {
-            border-color: #4D9457;
-        }
-        
-        .link.highlight .badge {
-            border-color: #EFCA2F;
-        }
-    </style>
-</head>
-<body>
-    <!-- Snake decoration -->
-    <div class="snake-decoration">
-        <!-- SVG of a Python-like snake -->
-        <svg width="100%" height="100%" viewBox="0 0 100 100">
-            <path d="M50,15 C70,15 80,25 80,40 C80,55 70,65 50,65 C30,65 20,55 20,40 C20,25 30,15 50,15 Z" fill="#4D9457" />
-            <path d="M35,40 Q50,20 65,40" stroke="black" stroke-width="4" fill="none" />
-            <circle cx="35" cy="40" r="5" fill="#D83B3B" />
-            <circle cx="65" cy="40" r="5" fill="#D83B3B" />
-        </svg>
-    </div>
-    
-    <div class="container">
-        <div class="profile">
-            <div class="logo">
-                <svg width="80" height="80" viewBox="0 0 100 100">
-                    <path d="M50,15 C70,15 80,25 80,40 C80,55 70,65 50,65 C30,65 20,55 20,40 C20,25 30,15 50,15 Z" fill="#4D9457" />
-                    <path d="M35,40 Q50,20 65,40" stroke="black" stroke-width="4" fill="none" />
-                    <circle cx="35" cy="40" r="5" fill="#D83B3B" />
-                    <circle cx="65" cy="40" r="5" fill="#D83B3B" />
-                </svg>
-                <div class="logo-text">Pythonistas GDL</div>
+
+            @media (max-width: 600px) {
+                h1 {
+                    font-size: 1.5rem;
+                }
+
+                .link {
+                    font-size: 1rem;
+                    padding: 10px;
+                }
+
+                .snake-decoration {
+                    width: 100px;
+                    height: 100px;
+                }
+            }
+
+            .badge {
+                position: absolute;
+                top: -8px;
+                right: -8px;
+                background-color: white;
+                color: #000000;
+                font-size: 0.7rem;
+                padding: 4px 8px;
+                border-radius: 10px;
+                border: 1px solid #000000;
+            }
+
+            .link.primary .badge {
+                border-color: #D83B3B;
+            }
+
+            .link.secondary .badge {
+                border-color: #4391C1;
+            }
+
+            .link.tertiary .badge {
+                border-color: #4D9457;
+            }
+
+            .link.highlight .badge {
+                border-color: #EFCA2F;
+            }
+        </style>
+    </head>
+    <body>
+        <!-- Snake decoration -->
+        <div class="snake-decoration">
+            <!-- SVG of a Python-like snake -->
+            <svg width="100%" height="100%" viewBox="0 0 100 100">
+                <path d="M50,15 C70,15 80,25 80,40 C80,55 70,65 50,65 C30,65 20,55 20,40 C20,25 30,15 50,15 Z" fill="#4D9457" />
+                <path d="M35,40 Q50,20 65,40" stroke="black" stroke-width="4" fill="none" />
+                <circle cx="35" cy="40" r="5" fill="#D83B3B" />
+                <circle cx="65" cy="40" r="5" fill="#D83B3B" />
+            </svg>
+        </div>
+
+        <div class="container">
+            <div class="profile">
+                <div class="logo">
+                    <svg width="80" height="80" viewBox="0 0 100 100">
+                        <path d="M50,15 C70,15 80,25 80,40 C80,55 70,65 50,65 C30,65 20,55 20,40 C20,25 30,15 50,15 Z" fill="#4D9457" />
+                        <path d="M35,40 Q50,20 65,40" stroke="black" stroke-width="4" fill="none" />
+                        <circle cx="35" cy="40" r="5" fill="#D83B3B" />
+                        <circle cx="65" cy="40" r="5" fill="#D83B3B" />
+                    </svg>
+                    <div class="logo-text">Pythonistas GDL</div>
+                </div>
+                <h1>print("Hola Pythonistas GDL!")</h1>
+                <p class="description">Comunidad de desarrolladores Python en Guadalajara. Comparte conocimiento, haz networking y crece profesionalmente.</p>
             </div>
-            <h1>print("Hola Pythonistas GDL!")</h1>
-            <p class="description">Comunidad de desarrolladores Python en Guadalajara. Comparte conocimiento, haz networking y crece profesionalmente.</p>
-        </div>
-        
-        <div class="links">
-            <a href="https://pythonistas-gdl.org/" class="link primary" id="evento">
-                <div class="link-content">
-                    <div class="link-icon">📅</div>
-                    Próximo Evento: TBD
+
+            <div class="links">
+                <a href="https://pythonistas-gdl.org/reunion-viernes-27-junio-2025.html" class="link primary" id="evento">
+                        <div class="link-content">
+                            <div class="link-icon">📅</div>
+                            Reunión del Viernes 27 de Junio 2025
+                        </div>
+                        <span class="badge">Reunion</span>
+                    </a>
+
+                    <a href="https://pythonistas-gdl.org" class="link secondary" id="registro">
+                        <div class="link-content">
+                            <div class="link-icon">🎟️</div>
+                            https://pythonistas-gdl.org/
+                        </div>
+                        
+                    </a>
+
+                    <a href="https://pythonistas-gdl.org/" class="link tertiary" id="poetry">
+                        <div class="link-content">
+                            <div class="link-icon">👨‍💻</div>
+                            Poetry: Package Manager por Daniel Delgado
+                        </div>
+                        
+                    </a>
+
+                    <a href="https://discord.gg/HcvW3r2Wfu" class="link" id="discord">
+                        <div class="link-content">
+                            <div class="social-icon"><img src="images/discord.png" alt="Discord" /></div>
+                            Discord
+                        </div>
+                        
+                    </a>
+
+                    <a href="https://www.linkedin.com/groups/13193010/" class="link" id="linkedin">
+                        <div class="link-content">
+                            <div class="social-icon"><img src="images/linkedin.png" alt="LinkedIn" /></div>
+                            LinkedIn
+                        </div>
+                        
+                    </a>
+
+                    <a href="https://www.tiktok.com/@pythonistas_gdl" class="link" id="tiktok">
+                        <div class="link-content">
+                            <div class="social-icon"><img src="images/tiktok.png" alt="TikTok" /></div>
+                            TikTok
+                        </div>
+                        
+                    </a>
+
+                    <a href="https://www.youtube.com/@PythonistasGDL" class="link" id="youtube">
+                        <div class="link-content">
+                            <div class="social-icon"><img src="images/youtube.png" alt="YouTube" /></div>
+                            YouTube
+                        </div>
+                        
+                    </a>
+
+                    <a href="https://x.com/pythonistas_gdl/" class="link" id="twitter">
+                        <div class="link-content">
+                            <div class="social-icon"><img src="images/twitter.png" alt="Twitter/X" /></div>
+                            Twitter/X
+                        </div>
+                        
+                    </a>
+
+                    <a href="https://www.instagram.com/pythonistas_gdl/" class="link" id="instagram">
+                        <div class="link-content">
+                            <div class="social-icon"><img src="images/instagram.png" alt="Instagram" /></div>
+                            Instagram
+                        </div>
+                        
+                    </a>
+
+                    <a href="https://www.facebook.com/PythonistasGdl/" class="link" id="facebook">
+                        <div class="link-content">
+                            <div class="social-icon"><img src="images/facebook.png" alt="Facebook" /></div>
+                            Síguenos en Facebook
+                        </div>
+                        
+                    </a>
+
                 </div>
-                <span class="badge">Nuevo</span>
-            </a>
-            
-            <a href="https://pythonistas-gdl.org" class="link highlight" id="registro">
-                <div class="link-content">
-                    <div class="link-icon">🎟️</div>
-                    Registrate: pythonistas-gdl.org
-                </div>
-                
-            </a>
-            
-            <a href="https://pythonistas-gdl.org/" class="link tertiary" id="poetry">
-                <div class="link-content">
-                    <div class="link-icon">👨‍💻</div>
-                    Poetry: Package Manager por Daniel Delgado
-                </div>
-                
-            </a>
-            
-            <a href="https://discord.gg/HcvW3r2Wfu" class="link" id="discord">
-                <div class="link-content">
-                    <div class="link-icon">💬</div>
-                    Discord
-                </div>
-                
-            </a>
-            
-            <a href="https://www.linkedin.com/groups/13193010/" class="link" id="linkedin">
-                <div class="link-content">
-                    <div class="link-icon">💼</div>
-                    LinkedIn
-                </div>
-                
-            </a>
-            
-            <a href="https://www.tiktok.com/@pythonistas_gdl" class="link" id="tiktok">
-                <div class="link-content">
-                    <div class="link-icon">🎵</div>
-                    TikTok
-                </div>
-                
-            </a>
-            
-            <a href="https://www.youtube.com/@PythonistasGDL" class="link" id="youtube">
-                <div class="link-content">
-                    <div class="link-icon">🎬</div>
-                    YouTube
-                </div>
-                
-            </a>
-            
-            <a href="https://x.com/pythonistas_gdl/" class="link" id="twitter">
-                <div class="link-content">
-                    <div class="link-icon">🐦</div>
-                    Twitter/X
-                </div>
-                
-            </a>
-            
-            <a href="https://www.instagram.com/pythonistas_gdl/" class="link" id="instagram">
-                <div class="link-content">
-                    <div class="link-icon">📷</div>
-                    Instagram
-                </div>
-                
-            </a>
-            
-            <a href="https://www.facebook.com/PythonistasGdl/" class="link" id="facebook">
-                <div class="link-content">
-                    <div class="link-icon">📘</div>
-                    Síguenos en Facebook
-                </div>
-                
-            </a>
-            
-        </div>
         
         <div class="footer">
             © 2025 Pythonistas GDL - Comunidad de Python en Guadalajara
