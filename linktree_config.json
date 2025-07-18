@@ -17,8 +17,8 @@
   },
   "links": [
     {
-      "title": "Reunión del Viernes 27 de Junio 2025",
-      "url": "https://pythonistas-gdl.org/reunion-viernes-27-junio-2025.html",
+      "title": "Reunión del Viernes 25 de Julio 2025",
+      "url": "https://pythonistas-gdl.org/reunion-viernes-25-de-julio-2025.html",
       "icon": "📅",
       "style": "primary",
       "badge": "Reunion",
@@ -29,17 +29,17 @@
       "title": "https://pythonistas-gdl.org/",
       "url": "https://pythonistas-gdl.org",
       "icon": "🎟️",
-      "style": "secondary",
-      "badge": null,
+      "style": "highlight",
+      "badge": "Homepage",
       "enabled": true,
       "id": "registro"
     },
     {
-      "title": "Poetry: Package Manager por Daniel Delgado",
-      "url": "https://pythonistas-gdl.org/",
+      "title": "Reunión de Junio 2025 en YoTePresto.",
+      "url": "https://pythonistas-gdl.org/reunion-viernes-27-de-junio-2025-en-yotepresto.html",
       "icon": "👨‍💻",
       "style": "tertiary",
-      "badge": null,
+      "badge": "Video",
       "enabled": true,
       "id": "poetry"
     },
