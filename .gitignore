@@ -39,4 +39,4 @@ Thumbs.db
 *.csv
 *.json
 *.xlsx
-!sample_data/
+!sample_data/ .idea/
